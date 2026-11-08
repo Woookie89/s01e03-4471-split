@@ -12,7 +12,7 @@ The support desk merged 412 reports about dates into one ticket, #4471, and mark
 
 ## The page
 
-- Source: [`support-kb/src/routes/kb/incidents/4471-split/+page.svx`](support-kb/src/routes/kb/incidents/4471-split/+page.svx), signed `Woookie89` (desk ref `DR-MY0K-WTRZ`).
+- Source: [`support-kb/src/routes/kb/incidents/4471-split/+page.svx`](support-kb/src/routes/kb/incidents/4471-split/+page.svx), signed with the course ticket (desk ref `DR-19VM-G06M`).
 - Its logic: [`problems.ts`](support-kb/src/lib/kb/problems.ts) and [`ProblemTable.svelte`](support-kb/src/lib/kb/ProblemTable.svelte). Every number on the page is computed from the export data.
 - As the desk sees it: [`rendered/kb__incidents__4471-split.html`](rendered/kb__incidents__4471-split.html) (self-contained, built from the source).
 
