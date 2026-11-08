@@ -1,0 +1,66 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: Woookie89
+status: open
+reviewed: 2026-11-08
+signature: Woookie89
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) was merged as one issue and marked known: "the parser reads dates
+month first, the fix is queued". Read the reports and that is true for most of them, not all.
+The ticket holds three problems, and the queued fix closes only one.
+
+<Callout kind="warn">
+Not one issue. Three, each with its own ticket. The parser fix does not close #4471.
+</Callout>
+
+## What the reports show
+
+<ProblemTable ticket={4471} />
+
+**`parser`.** The booking was made for one date and the invite or reminder shows the same
+digits with day and month swapped: 8 July turns into 7 August. It comes in by app, by email and
+through `booking-v2`, from every day-first tenant. This is the bug #4471 describes.
+
+**`hint`.** The same swap, but only through the `booking-v3` form at day-first tenants. That form
+prints `MM/DD/YYYY` under its date field, so people type month first, and the form then reads
+their input the tenant's way. A parser that reads day first does not help: the input is already
+month first. The fix is in the form.
+
+**`one-day-move`.** The date moves by one day, not day ↔ month: "Tuesday 12 May" shows as
+"Monday 11 May", a client in Lisbon gets Tuesday and a client in Toronto gets Monday, an invite
+arrives before the booking was made, every June booking is a day off. That is time zones, not
+date order. The desk noted these reports and then counted them under `parser` by tenant; a
+parser fix leaves every one of them where it is.
+
+## How they were counted
+
+- The export comes in overlapping pages; a report can appear twice. One id, one report.
+- `meta.intakeTag` is intake's guess from the reporter's browser. It is not the cause; the tables
+  above and below show how far the two disagree.
+- `parser` and `hint` follow the desk's own rule in `causes.ts`: tenant locale, booking form,
+  channel.
+- `one-day-move` is the desk's own reading of those bodies (`desk-notes.json`), taken as a problem
+  instead of a footnote.
+
+For comparison, the desk's view of the same ticket, by cause only:
+
+<CauseTable ticket={4471} />
+
+## What to do with #4471
+
+- Track each problem on its own ticket (linked in the table) and close each one on its own fix.
+- When the parser fix ships, `parser` closes. `hint` and `one-day-move` stay open until their own
+  fixes or decisions.
+- Merging on subject ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) put all three in
+  one ticket: they share subjects like "Date is wrong". Read the body before you merge.
+
+<RenderStamp {signature} />
