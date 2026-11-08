@@ -5,12 +5,12 @@
   "description": "Builds the exported support kb (../support-kb) to static HTML, the way the desk sees it.",
   "scripts": { "build": "node build.mjs" },
   "devDependencies": {
-    "@sveltejs/adapter-static": "3.0.8",
-    "@sveltejs/kit": "2.21.1",
+    "@sveltejs/adapter-static": "4.0.1",
+    "@sveltejs/kit": "3.1.1",
     "@sveltejs/vite-plugin-svelte": "5.0.3",
     "mdsvex": "0.12.6",
-    "svelte": "5.33.1",
+    "svelte": "5.57.3",
     "typescript": "5.8.3",
-    "vite": "6.3.5"
+    "vite": "6.4.5"
   }
 }
